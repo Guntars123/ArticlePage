@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\ApiClient;
 use App\Core\TwigView;
 
-
 class ArticlesController
 {
     private ApiClient $apiClient;

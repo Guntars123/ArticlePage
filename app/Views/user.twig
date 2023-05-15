@@ -5,25 +5,27 @@
     {% if user is empty %}
         <h1>Something went wrong. No results found. Please try again!</h1>
     {% else %}
-            <div class="user">
-                <p><strong>Username: {{ user.username }}</strong></p>
-                <p><strong>Name: </strong>{{ user.name }}</p>
-                <p><strong>Email: </strong>{{ user.email }}</p>
-                <p><strong>Address: </strong>{{ user.address.street }}, {{ user.address.suite }}, {{ user.address.city }}, {{ user.address.zipcode }}</p>
-                <p><strong>{{ user.name }} phone number : </strong>{{ user.phone }}</p>
-                <p><strong>{{ user.name }} website : </strong>{{ user.website }}</p>
-                <p><strong>{{ user.name }} company : </strong>{{ user.company.name }}</p>
-                <p><strong>Company catch phrase: : </strong>{{ user.company.catchPhrase }}</p>
-                <p><strong>Company bs: : </strong>{{ user.company.bs }}</p>
-            </div>
+        <div class="user">
+            <p><strong>Username: {{ user.username }}</strong></p>
+            <p><strong>Name: </strong>{{ user.name }}</p>
+            <p><strong>Email: </strong>{{ user.email }}</p>
+            <p><strong>Address: </strong>{{ user.address.street }}, {{ user.address.suite }}, {{ user.address.city }}
+                , {{ user.address.zipcode }}</p>
+            <p><strong>{{ user.name }} phone number : </strong>{{ user.phone }}</p>
+            <p><strong>{{ user.name }} website : </strong>{{ user.website }}</p>
+            <p><strong>{{ user.name }} company : </strong>{{ user.company.name }}</p>
+            <p><strong>Company catch phrase: : </strong>{{ user.company.catchPhrase }}</p>
+            <p><strong>Company bs: : </strong>{{ user.company.bs }}</p>
+        </div>
         <div class="userPosts">
-            <h1>{{ user.username }} posts:</h1>
+            <h1>{{ user.username }}s posts:</h1>
             {% for article in articles|filter(article => article.userId == user.id) %}
-                <img src="https://placehold.co/200x200" alt="Article Image">
-                <a href="/article/{{ article.getId() }}"><h2>{{ article.title }}</h2></a>
-                <p>{{ article.body }}</p>
+                <div class="articleuser">
+                    <img src="https://placehold.co/200x200" alt="Article Image">
+                    <a href="/article/{{ article.getId() }}"><h2>{{ article.title }}</h2></a>
+                    <p>{{ article.body }}</p>
+                </div>
             {% endfor %}
-        </div>>
+        </div>
     {% endif %}
-
 {% endblock %}

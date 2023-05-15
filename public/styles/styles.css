@@ -1,0 +1,248 @@
+/* Global styling */
+body {
+    background-color: #595353;
+    font-family: Arial, sans-serif;
+    margin-top: 200px;
+}
+
+/* Header styling */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+header h1 {
+    font-size: 4rem;
+    text-align: center;
+    margin: 0;
+    padding: 1rem;
+    color: #fff;
+}
+
+button {
+    margin-right: 30px;
+    margin-top: 30px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #004266;
+}
+
+/* Content container */
+.container {
+    background-color: #d9cccc;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 2000px;
+    width: 90%;
+}
+
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.footer h2 {
+    margin: 0 10px;
+}
+
+.footer h2:first-child {
+    margin-left: 0;
+}
+
+.footer h2:last-child {
+    margin-right: 0;
+}
+
+.article-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px auto;
+    max-width: 1800px;
+}
+
+.article-card {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 20px 0;
+    width: calc(50% - 20px);
+}
+
+@media only screen and (min-width: 768px) {
+    .article-card {
+        width: 45%;
+    }
+}
+
+.article-card img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 0 auto 10px;
+}
+
+.article-card h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.article-card p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.article-card a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.article-card a:hover {
+    color: #1955b0;
+    transform: scale(1.1);
+}
+
+@media only screen and (max-width: 1200px) {
+    .article-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .article-card {
+        width: 100%;
+    }
+}
+
+.user {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1950px;
+    width: 100%;
+    text-align: left;
+}
+
+.userPosts {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1950px;
+    width: 100%;
+    text-align: left;
+}
+
+.userPosts .articleuser {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 5px solid #6e6a6a;
+}
+
+.userPosts .articleuser:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.userPosts h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.userPosts p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.userPosts a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.userPosts a:hover {
+    color: #1955b0;
+}
+
+.comments {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1950px;
+    width: 100%;
+    text-align: left;
+}
+
+.comments .comment {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 5px solid #6e6a6a;
+}
+
+.article {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1950px;
+    width: 100%;
+    text-align: left;
+}
+
+
+.article h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.article p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.article a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.article a:hover {
+    color: #1955b0;
+    transform: scale(1.2);
+}
+
+h1 {
+    font-size: 4rem;
+    margin: 0;
+    color: #333;
+}

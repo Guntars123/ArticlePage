@@ -16,13 +16,13 @@ class User
 
     public function __construct
     (
-        int $id,
-        string $name,
-        string $userName,
-        string $email,
+        int       $id,
+        string    $name,
+        string    $userName,
+        string    $email,
         \stdClass $address,
-        string $phone,
-        string $website,
+        string    $phone,
+        string    $website,
         \stdClass $company
     )
     {

@@ -5,13 +5,18 @@
     {% if articles is empty %}
         <h1>Something went wrong. No results found. Please try again!</h1>
     {% else %}
-        {% for article in articles %}
-            <div class="article">
-                <a href="/article/{{ article.getId() }}"><h2>{{ article.getTitle() }}</h2></a>
-                <img src="https://placehold.co/200x200" alt="Article Image">
-                <p>{{ article.getBody() }}</p>
-                <p>Author: <a href="user/{{ article.userId }}"> {{ users|filter(user => user.id == article.userId)|first.username }}</a></p>
-            </div>
-        {% endfor %}
+        <div class="article-container">
+            {% for article in articles %}
+                <div class="article-card">
+                    <a href="/article/{{ article.getId() }}"><h2>{{ article.getTitle() }}</h2></a>
+                    <img src="https://placehold.co/800x500" alt="Article Image">
+                    <p>{{ article.getBody() }}</p>
+                    <p>Author:
+                        <a href="user/{{ article.userId }}">
+                            {{ users|filter(user => user.id == article.userId)|first.username }}</a>
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
 {% endblock %}
