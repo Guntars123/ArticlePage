@@ -1,7 +1,7 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-    <h1>{{ article.title }}</h1>
+    <h1>{{ article.title|capitalize }}</h1>
     {% if article is empty %}
         <h1>Something went wrong. No results found. Please try again!</h1>
     {% else %}
@@ -10,15 +10,17 @@
                 <a href="/user/{{ article.userId }}"> {{ users|filter(user => user.id == article.userId)|first.username }}</a>
             </p>
             <img src="https://placehold.co/800x500" alt="Article Image">
-            <p>{{ article.body }}</p>
+            <p>{{ article.body|capitalize }}</p>
         </div>
         <div class="comments">
-            <h1>Comments:</h1>
+            <h1>Comments({{ comments|filter(comment => comment.postId == article.id)|length }}):</h1>
             {% for comment in comments|filter(comment => comment.postId == article.id) %}
                 <div class="comment">
-                    <p><strong>Name: </strong>{{ comment.name }}</p>
-                    <p><strong>Email: </strong>{{ comment.email }}</p>
-                    <p>{{ comment.body }}</p>
+                    <p>
+                        <img class="commentatorPhoto" src="https://placehold.co/30x30" alt="User image">
+                        <strong class="comment-name">{{ comment.name|capitalize }}</strong>
+                    </p>
+                    <p>{{ comment.body|capitalize }}</p>
                 </div>
             {% endfor %}
         </div>

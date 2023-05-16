@@ -96,12 +96,18 @@ footer {
     }
 }
 
-.article-card img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin: 0 auto 10px;
+.article-card .author-info {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.article-card .userImage {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 10px;
+    object-fit: cover;
 }
 
 .article-card h2 {
@@ -148,6 +154,12 @@ footer {
     text-align: left;
 }
 
+.userPhoto {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
 .userPosts {
     background-color: #f5f5f5;
     border-radius: 10px;
@@ -169,6 +181,11 @@ footer {
     margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: none;
+}
+
+.userPosts h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 
 .userPosts h2 {
@@ -194,7 +211,7 @@ footer {
 .comments {
     background-color: #f5f5f5;
     border-radius: 10px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     padding: 20px;
     margin: 20px auto;
     max-width: 1950px;
@@ -206,6 +223,18 @@ footer {
     margin-bottom: 20px;
     padding-bottom: 20px;
     border-bottom: 5px solid #6e6a6a;
+}
+
+.comments .comment .comment-name {
+    margin-left: 5px;
+}
+
+.commentatorPhoto {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 10px;
+    object-fit: cover;
 }
 
 .article {
