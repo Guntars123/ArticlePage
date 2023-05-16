@@ -1,4 +1,4 @@
-Hi, here are the instructions how to open my "article page" project:
+Hi, here are step by step instructions how to open my "article page" project:
 
 | Step | Description                                      |
 |------|--------------------------------------------------|
@@ -8,4 +8,4 @@ Hi, here are the instructions how to open my "article page" project:
 
 
 Webpage screenshot:
-<img src="public/images/preview.png">
+<img src="public/images/preview1.png">
