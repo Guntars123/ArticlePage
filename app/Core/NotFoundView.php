@@ -22,5 +22,6 @@ class NotFoundView extends View
     {
         return $this->data;
     }
+
 }
 

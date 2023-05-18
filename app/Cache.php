@@ -53,4 +53,5 @@ class Cache
 
         return Carbon::now()->lessThan(Carbon::parse($content->expires_at));
     }
+
 }

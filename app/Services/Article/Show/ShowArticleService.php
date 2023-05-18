@@ -27,4 +27,5 @@ class ShowArticleService
 
         return new ShowArticleResponse($article, $comments);
     }
+
 }

@@ -17,4 +17,5 @@ class IndexArticleService
     {
         return $this->apiClient->getArticles();
     }
+
 }

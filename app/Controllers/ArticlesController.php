@@ -23,7 +23,6 @@ class ArticlesController
 
     public function show(array $vars): View
     {
-
         try {
             $articleId = (int)$vars['id'];
             $service = new ShowArticleService();

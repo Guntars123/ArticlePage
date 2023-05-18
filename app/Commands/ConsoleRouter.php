@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace App\Commands;
+
 class ConsoleRouter
 {
     public static function response(array $argv): void

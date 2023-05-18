@@ -17,4 +17,5 @@ class IndexUserService
     {
         return $this->apiClient->getUsers();
     }
+
 }

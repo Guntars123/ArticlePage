@@ -36,6 +36,7 @@ class Article
     {
         return $this->body;
     }
+
 }
 
 

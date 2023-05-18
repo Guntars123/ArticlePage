@@ -14,4 +14,5 @@ class ShowArticleRequest
     {
         return $this->articleId;
     }
+
 }

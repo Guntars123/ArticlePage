@@ -24,5 +24,4 @@ class ShowUserResponse
     {
         return $this->articles;
     }
-
 }

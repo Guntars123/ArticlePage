@@ -15,6 +15,7 @@ class ConsoleUserController
 
         (new ConsoleRenderer())->renderUsers($users);
     }
+
     public function show(int $id): void
     {
         $userId = $id;

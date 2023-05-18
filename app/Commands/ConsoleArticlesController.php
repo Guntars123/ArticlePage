@@ -15,6 +15,7 @@ class ConsoleArticlesController
 
         (new ConsoleRenderer())->renderArticles($articles);
     }
+
     public function show(int $id): void
     {
         $articleId = $id;

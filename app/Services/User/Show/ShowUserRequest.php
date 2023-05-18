@@ -14,4 +14,5 @@ class ShowUserRequest
     {
         return $this->userId;
     }
+
 }

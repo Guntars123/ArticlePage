@@ -26,6 +26,7 @@ class UserController
         try {
             $userId = (int)$vars["id"];
             $service = new ShowUserService();
+
             $response = $service->execute(new ShowUserRequest($userId));
 
             return new TwigView("user", [

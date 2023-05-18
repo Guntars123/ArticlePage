@@ -26,4 +26,5 @@ class ShowUserService
 
         return new ShowUserResponse($user,$articles);
     }
+
 }
