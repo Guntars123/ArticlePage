@@ -20,10 +20,10 @@
         </div>
         <div class="userPosts">
             <h1>{{ user.username }}s posts:</h1>
-            {% for article in articles|filter(article => article.userId == user.id) %}
+            {% for article in articles %}
                 <div class="articleuser">
                     <img src="https://placehold.co/200x200" alt="Article Image">
-                    <a href="/article/{{ article.getId() }}"><h2>{{ article.title|capitalize }}</h2></a>
+                    <a href="/article/{{ article.id }}"><h2>{{ article.title|capitalize }}</h2></a>
                     <p>{{ article.body|capitalize }}</p>
                 </div>
             {% endfor %}

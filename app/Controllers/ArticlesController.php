@@ -2,46 +2,40 @@
 
 namespace App\Controllers;
 
-use App\ApiClient;
+use App\Core\NotFoundView;
 use App\Core\TwigView;
+use App\Core\View;
+use App\Exceptions\ResourceNotFoundException;
+use App\Services\Article\IndexArticleService;
+use App\Services\Article\Show\ShowArticleRequest;
+use App\Services\Article\Show\ShowArticleService;
+
 
 class ArticlesController
 {
-    private ApiClient $apiClient;
-
-    public function __construct()
+    public function index(): View
     {
-        $this->apiClient = new ApiClient();
+        $service = new IndexArticleService();
+        $articles = $service->execute();
+
+        return new TwigView("index", ['articles' => $articles]);
     }
 
-
-    public function index(): TwigView
+    public function show(array $vars): View
     {
-        $articles = $this->apiClient->getArticles();
-        $users = $this->apiClient->getUsers();
 
-        return new TwigView("index", ['articles' => $articles, 'users' => $users]);
-    }
+        try {
+            $articleId = (int)$vars['id'];
+            $service = new ShowArticleService();
+            $response = $service->execute(new ShowArticleRequest($articleId));
 
-    public function user(array $vars): TwigView
-    {
-        $userId = $vars["id"];
-
-        $user = $this->apiClient->getUsers($userId)[0];
-        $articles = $this->apiClient->getArticles();
-
-        return new TwigView("user", ['user' => $user, 'articles' => $articles]);
-    }
-
-    public function article(array $vars): TwigView
-    {
-        $articleId = $vars['id'];
-
-        $users = $this->apiClient->getUsers();
-        $article = $this->apiClient->getArticles($articleId)[0];
-        $comments = $this->apiClient->getComments();
-
-        return new TwigView("article", ['users' => $users, 'article' => $article, 'comments' => $comments]);
+            return new TwigView("article", [
+                'article' => $response->getArticle(),
+                'comments' => $response->getComments()
+            ]);
+        } catch (ResourceNotFoundException $exception) {
+            return new NotFoundView("notFound");
+        }
     }
 }
 

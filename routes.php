@@ -1,10 +1,12 @@
 <?php declare(strict_types=1);
 
 use App\Controllers\ArticlesController;
+use App\Controllers\UserController;
 
 return
     [
         ['/', [ArticlesController::class, 'index']],
-        ['/article/{id:\d+}', [ArticlesController::class, 'article']],
-        ['/user/{id:\d+}', [ArticlesController::class, 'user']],
+        ['/users', [UserController::class, 'index']],
+        ['/article/{id:\d+}', [ArticlesController::class, 'show']],
+        ['/user/{id:\d+}', [UserController::class, 'show']],
     ];

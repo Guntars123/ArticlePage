@@ -28,8 +28,7 @@ header h1 {
 }
 
 button {
-    margin-right: 30px;
-    margin-top: 30px;
+    margin-right: 20px;
     background-color: #008CBA;
     color: white;
     border: none;
@@ -37,6 +36,15 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav form {
+    margin-right: 20px;
 }
 
 button:hover {
@@ -274,4 +282,43 @@ h1 {
     font-size: 4rem;
     margin: 0;
     color: #333;
+}
+
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.users {
+    flex-basis: calc(33.33% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.userPhoto {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.users p {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.users a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.users a:hover {
+    color: #1955b0;
 }

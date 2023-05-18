@@ -4,22 +4,22 @@ namespace App\Models;
 
 class Article
 {
-    private int $userId;
+    private User $author;
     private int $id;
     private string $title;
     private string $body;
 
-    public function __construct(int $userId, int $id, string $title, string $body)
+    public function __construct(User $author, int $id, string $title, string $body)
     {
-        $this->userId = $userId;
+        $this->author = $author;
         $this->id = $id;
         $this->title = $title;
         $this->body = $body;
     }
 
-    public function getUserID(): int
+    public function getAuthor(): User
     {
-        return $this->userId;
+        return $this->author;
     }
 
     public function getId(): int
