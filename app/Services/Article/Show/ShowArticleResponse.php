@@ -24,6 +24,5 @@ class ShowArticleResponse
     {
         return $this->comments;
     }
-
 }
 

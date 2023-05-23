@@ -2,29 +2,33 @@
 
 namespace App\Services\User\Show;
 
-use App\ApiClient;
 use App\Exceptions\ResourceNotFoundException;
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Article\JsonPlaceholderArticleRepository;
+use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\User\UserRepository;
 
 class ShowUserService
 {
-    private ApiClient $apiClient;
+    private UserRepository $userRepository;
+    private ArticleRepository $articleRepository;
 
     public function __construct()
     {
-        $this->apiClient = new ApiClient();
+        $this->userRepository = new JsonPlaceholderUserRepository();
+        $this->articleRepository = new JsonPlaceholderArticleRepository();
     }
 
     public function execute(ShowUserRequest $request): ShowUserResponse
     {
-        $user = $this->apiClient->getSingleUser($request->getUserId());
+        $user = $this->userRepository->getById($request->getUserId());
 
         if ($user == null) {
             throw new ResourceNotFoundException("User by id {$request->getUserId()} not found");
         }
 
-        $articles = $this->apiClient->getArticlesByUserId($user->getId());
+        $articles = $this->articleRepository->getByUserId($user->getId());
 
-        return new ShowUserResponse($user,$articles);
+        return new ShowUserResponse($user, $articles);
     }
-
 }

@@ -4,27 +4,28 @@ namespace App\Models;
 
 class Article
 {
-    private User $author;
     private int $id;
+    private int $authorId;
     private string $title;
     private string $body;
+    private ?User $author = null;
 
-    public function __construct(User $author, int $id, string $title, string $body)
+    public function __construct(int $id, int $authorId, string $title, string $body)
     {
-        $this->author = $author;
         $this->id = $id;
+        $this->authorId = $authorId;
         $this->title = $title;
         $this->body = $body;
-    }
-
-    public function getAuthor(): User
-    {
-        return $this->author;
     }
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getAuthorId(): int
+    {
+        return $this->authorId;
     }
 
     public function getTitle(): string
@@ -37,6 +38,15 @@ class Article
         return $this->body;
     }
 
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): void
+    {
+        $this->author = $author;
+    }
 }
 
 

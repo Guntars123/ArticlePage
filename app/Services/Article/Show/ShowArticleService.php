@@ -2,30 +2,46 @@
 
 namespace App\Services\Article\Show;
 
-use App\ApiClient;
 use App\Exceptions\ResourceNotFoundException;
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Article\JsonPlaceholderArticleRepository;
+use App\Repositories\Comment\CommentRepository;
+use App\Repositories\Comment\JsonPlaceholderCommentRepository;
+use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\User\UserRepository;
 
 
 class ShowArticleService
 {
-    private ApiClient $apiClient;
+    private ArticleRepository $articleRepository;
+    private UserRepository $userRepository;
+    private CommentRepository $commentRepository;
 
     public function __construct()
     {
-        $this->apiClient = new ApiClient();
+        $this->articleRepository = new JsonPlaceholderArticleRepository();
+        $this->userRepository = new JsonPlaceholderUserRepository();
+        $this->commentRepository = new JsonPlaceholderCommentRepository();
     }
 
     public function execute(ShowArticleRequest $request): ShowArticleResponse
     {
-        $article = $this->apiClient->getArticleByArticleId($request->getArticleId());
+        $article = $this->articleRepository->getById($request->getArticleId());
 
         if ($article == null) {
             throw new ResourceNotFoundException("Article by id {$request->getArticleId()} not found");
         }
 
-        $comments = $this->apiClient->getCommentsByArticleId($article->getId());
+        $author = $this->userRepository->getById($article->getAuthorId());
+
+        if ($author == null) {
+            throw new ResourceNotFoundException("Article author by id {$article->getAuthorId()} not found");
+        }
+
+        $article->setAuthor($author);
+
+        $comments = $this->commentRepository->getByArticleId($article->getId());
 
         return new ShowArticleResponse($article, $comments);
     }
-
 }
