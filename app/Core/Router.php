@@ -2,6 +2,13 @@
 
 namespace App\Core;
 
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Article\PdoArticleRepository;
+use App\Repositories\Comment\CommentRepository;
+use App\Repositories\Comment\JsonPlaceholderCommentRepository;
+use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\User\UserRepository;
+use DI\ContainerBuilder;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
@@ -10,10 +17,21 @@ class Router
 {
     public static function response(array $routes): ?View
     {
+        $builder = new ContainerBuilder();
+
+        $builder->addDefinitions([
+            ArticleRepository::class => new PdoArticleRepository(),
+            UserRepository::class => new JsonPlaceholderUserRepository(),
+            CommentRepository::class => new JsonPlaceholderCommentRepository()
+        ]);
+
+        $container = $builder->build();
+
+
         $dispatcher = simpleDispatcher(function (RouteCollector $router) use ($routes) {
             foreach ($routes as $route) {
-                [$url, $handler] = $route;
-                $router->get($url, $handler);
+                [$method, $path, $handler] = $route;
+                $router->addRoute($method, $path, $handler);
             }
         });
 
@@ -37,8 +55,9 @@ class Router
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
-                [$className, $methodName] = $handler;
-                $controller = new $className();
+                [$controllerName, $methodName] = $handler;
+                $controller = $container->get($controllerName);
+
                 return $controller->{$methodName}($vars);
         }
         return null;

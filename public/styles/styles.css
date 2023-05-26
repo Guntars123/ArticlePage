@@ -322,3 +322,53 @@ h1 {
 .users a:hover {
     color: #1955b0;
 }
+
+.delete-form {
+    text-align: right;
+}
+
+h1 a {
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.add-edit-article {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+.title-input {
+    width: 500px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.content-textarea {
+    width: 500px;
+    height: 300px;
+    padding: 10px;
+    font-size: 16px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #004266;
+}

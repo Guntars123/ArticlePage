@@ -1,0 +1,18 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <h1>Add article</h1>
+    <form class="add-edit-article" action="/add" method="POST">
+        <div class="form-group">
+            <label for="title">Enter the title:</label>
+            <input type="text" id="title" name="title" value="{{ title }}" class="title-input">
+        </div>
+        <div class="form-group">
+            <label for="content">Enter the content:</label>
+            <textarea id="content" name="content" class="content-textarea">{{ content }}</textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Add article">
+        </div>
+    </form>
+{% endblock %}

@@ -1,11 +1,11 @@
 Hi, here are step by step instructions how to open my "article page" project:
 
-| Step | Description                                      |
-|------|--------------------------------------------------|
-| 1    | Clone repo                                       |
-| 2    | Install composer                                 |
-| 3    | run php -S localhost:8000 from /public directory |
-
+| Step | Description                                                |
+|------|------------------------------------------------------------|
+| 1    | Clone repo                                                 |
+| 2    | Install composer                                           |
+| 3    | Rename .env.example and insert database connection details |
+| 4    | Run php -S localhost:8000 from /public directory           |
 
 Webpage screenshots:
 <img src="public/images/articles.png">

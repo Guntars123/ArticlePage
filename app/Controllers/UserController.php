@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-
 use App\Core\NotFoundView;
 use App\Core\TwigView;
 use App\Core\View;
@@ -13,10 +12,22 @@ use App\Services\User\Show\ShowUserService;
 
 class UserController
 {
+    private IndexUserService $indexUserService;
+    private ShowUserService $showUserService;
+
+    public function __construct
+    (
+        IndexUserService $indexUserService,
+        ShowUserService  $showUserService
+    )
+    {
+        $this->indexUserService = $indexUserService;
+        $this->showUserService = $showUserService;
+    }
+
     public function index(): View
     {
-        $service = new IndexUserService();
-        $users = $service->execute();
+        $users = $this->indexUserService->execute();
 
         return new TwigView("users", ['users' => $users]);
     }
@@ -25,9 +36,8 @@ class UserController
     {
         try {
             $userId = (int)$vars["id"];
-            $service = new ShowUserService();
 
-            $response = $service->execute(new ShowUserRequest($userId));
+            $response = $this->showUserService->execute(new ShowUserRequest($userId));
 
             return new TwigView("user", [
                 'user' => $response->getUser(),

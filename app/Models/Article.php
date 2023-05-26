@@ -8,14 +8,23 @@ class Article
     private int $authorId;
     private string $title;
     private string $body;
+    private string $date;
     private ?User $author = null;
 
-    public function __construct(int $id, int $authorId, string $title, string $body)
+    public function __construct
+    (
+        int    $id,
+        int    $authorId,
+        string $title,
+        string $body,
+        string $date
+    )
     {
         $this->id = $id;
         $this->authorId = $authorId;
         $this->title = $title;
         $this->body = $body;
+        $this->date = $date;
     }
 
     public function getId(): int
@@ -36,6 +45,12 @@ class Article
     public function getBody(): string
     {
         return $this->body;
+    }
+
+
+    public function getDate(): string
+    {
+        return $this->date;
     }
 
     public function getAuthor(): ?User
