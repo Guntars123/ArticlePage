@@ -13,4 +13,8 @@ $response = Router::response($routes);
 
 $renderer = new Renderer('../app/Views');
 
-echo $renderer->render($response);
+try {
+    echo $renderer->render($response);
+} catch (TypeError $e) {
+    return '';
+}

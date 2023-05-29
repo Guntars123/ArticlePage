@@ -39,7 +39,7 @@ class UserController
 
             $response = $this->showUserService->execute(new ShowUserRequest($userId));
 
-            return new TwigView("user", [
+            return new TwigView("singleUser", [
                 'user' => $response->getUser(),
                 'articles' => $response->getArticles()
             ]);

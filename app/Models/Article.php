@@ -2,34 +2,43 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use DateTimeInterface;
+
 class Article
 {
-    private int $id;
     private int $authorId;
     private string $title;
-    private string $body;
-    private string $date;
+    private string $content;
+    private string $createdAt;
     private ?User $author = null;
+    private ?int $id;
 
     public function __construct
     (
-        int    $id,
         int    $authorId,
         string $title,
-        string $body,
-        string $date
+        string $content,
+        string $createdAt = null,
+        int    $id = null
     )
     {
         $this->id = $id;
         $this->authorId = $authorId;
         $this->title = $title;
-        $this->body = $body;
-        $this->date = $date;
+        $this->content = $content;
+        $this->createdAt = $createdAt ?? Carbon::now()->format(DateTimeInterface::ATOM);
+
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getAuthorId(): int
@@ -42,15 +51,15 @@ class Article
         return $this->title;
     }
 
-    public function getBody(): string
+    public function getContent(): string
     {
-        return $this->body;
+        return $this->content;
     }
 
 
-    public function getDate(): string
+    public function getCreatedAt(): string
     {
-        return $this->date;
+        return $this->createdAt;
     }
 
     public function getAuthor(): ?User
@@ -61,6 +70,14 @@ class Article
     public function setAuthor(?User $author): void
     {
         $this->author = $author;
+    }
+
+    public function update(array $attributes): void
+    {
+        foreach ($attributes as $attribute => $value)
+        {
+            $this->{$attribute} = $value;
+        }
     }
 }
 

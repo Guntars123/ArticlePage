@@ -5,13 +5,19 @@ use App\Controllers\UserController;
 
 return
     [
+        //Users
         ['GET', '/', [ArticlesController::class, 'index']],
         ['GET', '/users', [UserController::class, 'index']],
-        ['GET', '/article/{id:\d+}', [ArticlesController::class, 'show']],
-        ['GET', '/user/{id:\d+}', [UserController::class, 'show']],
-        ['GET', '/add', [ArticlesController::class, 'createView']],
-        ['POST', '/add', [ArticlesController::class, 'create']],
-        ['GET', '/article/edit/{id:\d+}', [ArticlesController::class, 'editView']],
-        ['POST', '/article/edit/{id:\d+}', [ArticlesController::class, 'edit']],
-        ['POST', '/article/delete', [ArticlesController::class, 'delete']]
+        ['GET', '/users/{id:\d+}', [UserController::class, 'show']],
+
+        //Articles
+        ['GET', '/articles', [ArticlesController::class, 'index']],
+        ['GET', '/articles/{id:\d+}', [ArticlesController::class, 'show']],
+
+        ['GET', '/articles/create', [ArticlesController::class, 'create']],
+        ['POST', '/articles', [ArticlesController::class, 'store']],
+
+        ['GET', '/articles/edit/{id:\d+}', [ArticlesController::class, 'edit']],
+        ['POST', '/articles/{id:\d+}', [ArticlesController::class, 'update']],
+        ['POST', '/articles/delete', [ArticlesController::class, 'delete']]
     ];

@@ -77,5 +77,4 @@ class ConsoleRenderer
         }
         echo "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" . PHP_EOL;
     }
-
 }

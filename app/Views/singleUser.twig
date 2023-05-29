@@ -23,8 +23,8 @@
             {% for article in articles %}
                 <div class="articleuser">
                     <img src="https://placehold.co/200x200" alt="Article Image">
-                    <a href="/article/{{ article.id }}"><h2>{{ article.title|capitalize }}</h2></a>
-                    <p>{{ article.body|capitalize }}</p>
+                    <a href="/articles/{{ article.id }}"><h2>{{ article.title|capitalize }}</h2></a>
+                    <p>{{ article.content|capitalize }}</p>
                 </div>
             {% endfor %}
         </div>

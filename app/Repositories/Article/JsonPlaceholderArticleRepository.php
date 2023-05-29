@@ -77,11 +77,11 @@ class JsonPlaceholderArticleRepository implements ArticleRepository
     {
         return new Article
         (
-            $article->id,
             $article->userId,
             $article->title,
             $article->body,
-            Carbon::now()->toDateTimeString()
+            Carbon::now()->toDateTimeString(),
+            $article->id
         );
     }
 
@@ -93,5 +93,10 @@ class JsonPlaceholderArticleRepository implements ArticleRepository
         } catch (GuzzleException $e) {
             return "";
         }
+    }
+
+    public function save(Article $article): void
+    {
+
     }
 }

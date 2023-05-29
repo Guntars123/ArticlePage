@@ -6,28 +6,37 @@ use App\Core\NotFoundView;
 use App\Core\TwigView;
 use App\Core\View;
 use App\Exceptions\ResourceNotFoundException;
-use App\Services\Article\CudArticleService;
+use App\Services\Article\Create\CreateArticleService;
+use App\Services\Article\Delete\DeleteArticleService;
 use App\Services\Article\IndexArticleService;
+use App\Services\Article\Create\CreateArticleRequest;
 use App\Services\Article\Show\ShowArticleRequest;
 use App\Services\Article\Show\ShowArticleService;
+use App\Services\Article\Update\UpdateArticleRequest;
+use App\Services\Article\Update\UpdateArticleService;
 
 class ArticlesController
 {
     private IndexArticleService $indexArticleService;
     private ShowArticleService $showArticleService;
-
-    private CudArticleService $cudArticleService;
+    private CreateArticleService $createArticleService;
+    private UpdateArticleService $updateArticleService;
+    private DeleteArticleService $deleteArticleService;
 
     public function __construct
     (
-        IndexArticleService $indexArticleService,
-        ShowArticleService  $showArticleService,
-        CudArticleService   $cudArticleService
+        IndexArticleService  $indexArticleService,
+        ShowArticleService   $showArticleService,
+        CreateArticleService $createArticleService,
+        UpdateArticleService $updateArticleService,
+        DeleteArticleService $deleteArticleService
     )
     {
         $this->indexArticleService = $indexArticleService;
         $this->showArticleService = $showArticleService;
-        $this->cudArticleService = $cudArticleService;
+        $this->createArticleService = $createArticleService;
+        $this->updateArticleService = $updateArticleService;
+        $this->deleteArticleService = $deleteArticleService;
     }
 
     public function index(): View
@@ -35,7 +44,7 @@ class ArticlesController
 
         $articles = $this->indexArticleService->execute();
 
-        return new TwigView("index", ['articles' => $articles]);
+        return new TwigView("articles", ['articles' => $articles]);
     }
 
     public function show(array $vars): View
@@ -45,7 +54,7 @@ class ArticlesController
 
             $response = $this->showArticleService->execute(new ShowArticleRequest($articleId));
 
-            return new TwigView("article", [
+            return new TwigView("singleArticle", [
                 'article' => $response->getArticle(),
                 'comments' => $response->getComments()
             ]);
@@ -54,46 +63,58 @@ class ArticlesController
         }
     }
 
-    public function createView(): View
-    {
-        return new TwigView('addArticle', []);
-    }
-
     public function create(): View
     {
-        $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
-        $content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
-        $articleId = $this->cudArticleService->create($title, $content);
-        return new TwigView('articleAdded', ['articleId' => $articleId]);
+        return new TwigView('articles/create', []);
     }
 
-    public function editView(array $vars): View
+    public function store()
     {
-        $articleId = (int)$vars['id'];
-        $response = $this->showArticleService->execute(new ShowArticleRequest($articleId));
 
-        return new TwigView('editArticle', [
-            'article' => $response->getArticle()
-        ]);
+        $createArticleResponse = $this->createArticleService->execute(
+            new CreateArticleRequest(
+                filter_var($_POST['title'], FILTER_SANITIZE_STRING),
+                filter_var($_POST['content'], FILTER_SANITIZE_STRING)
+            )
+        );
+        $article = $createArticleResponse->getArticle();
+
+        header('Location: /articles/' . $article->getId());
     }
 
     public function edit(array $vars): View
     {
-        $articleId = (int)$vars['id'];
-        $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
-        $content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
-        $this->cudArticleService->edit($articleId, $title, $content);
-        return new TwigView('articleEdited', ['articleId' => $articleId]);
+        try {
+            $response = $this->showArticleService->execute(
+                new ShowArticleRequest((int)$vars['id'])
+            );
+            return new TwigView('articles/edit', ['article' => $response->getArticle()]);
+        } catch (\Error $error) {
+            return new NotFoundView("notFound");
+        }
     }
 
-    public function delete(): View
+    public function update(array $vars)
+    {
+        $response = $this->updateArticleService->execute(
+            new UpdateArticleRequest(
+                (int)$vars['id'],
+                filter_var($_POST['title'], FILTER_SANITIZE_STRING),
+                filter_var($_POST['content'], FILTER_SANITIZE_STRING)
+            )
+        );
+        $article = $response->getArticle();
+
+        header('Location: /articles/' . $article->getId());
+    }
+
+    public function delete(): void
     {
         $articleId = (int)$_POST['delete'];
-        if (true) {
-            $this->cudArticleService->delete($articleId);
-        }
 
-        return new TwigView('articleDeleted', ['articleId' => $articleId]);
+        $this->deleteArticleService->execute($articleId);
+
+        header('Location: /articles');
     }
 }
 

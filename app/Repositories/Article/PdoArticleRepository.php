@@ -3,7 +3,6 @@
 namespace App\Repositories\Article;
 
 use App\Models\Article;
-use Carbon\Carbon;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 
@@ -66,43 +65,39 @@ class PdoArticleRepository implements ArticleRepository
         return $articlesCollection;
     }
 
-    public function create(string $title, string $content): int
+    public function save(Article $article): void
     {
-        $user_id = 1;
-        $date = Carbon::now()->toDateTimeString();
+        if ($article->getId() === null) {
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->insert('articles')
+                ->values([
+                    'user_id' => $queryBuilder->createNamedParameter($article->getAuthorId()),
+                    'title' => $queryBuilder->createNamedParameter($article->getTitle()),
+                    'content' => $queryBuilder->createNamedParameter($article->getContent()),
+                    'created_at' => $queryBuilder->createNamedParameter($article->getCreatedAt())
+                ]);
 
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder
-            ->insert('articles')
-            ->values([
-                'user_id' => $queryBuilder->createNamedParameter($user_id),
-                'title' => $queryBuilder->createNamedParameter($title),
-                'content' => $queryBuilder->createNamedParameter($content),
-                'date' => $queryBuilder->createNamedParameter($date)
-            ]);
+            $query = $queryBuilder->getSQL();
+            $params = $queryBuilder->getParameters();
 
-        $query = $queryBuilder->getSQL();
-        $params = $queryBuilder->getParameters();
+            $this->connection->executeQuery($query, $params);
+            $article->setId((int)$this->connection->lastInsertId());
 
-        $this->connection->executeQuery($query, $params);
-        return (int)$this->connection->lastInsertId();
-    }
+        } else {
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->update('articles')
+                ->set('title', $queryBuilder->createNamedParameter($article->getTitle()))
+                ->set('content', $queryBuilder->createNamedParameter($article->getContent()))
+                ->where('id = :id')
+                ->setParameter('id', $article->getId());
 
-    public function edit(int $articleId, string $newTitle, string $newContent): void
-    {
+            $query = $queryBuilder->getSQL();
+            $params = $queryBuilder->getParameters();
 
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder
-            ->update('articles')
-            ->set('title', $queryBuilder->createNamedParameter($newTitle))
-            ->set('content', $queryBuilder->createNamedParameter($newContent))
-            ->where('id = :id')
-            ->setParameter('id', $articleId);
-
-        $query = $queryBuilder->getSQL();
-        $params = $queryBuilder->getParameters();
-
-        $this->connection->executeQuery($query, $params);
+            $this->connection->executeQuery($query, $params);
+        }
     }
 
     public function delete(int $articleId): void
@@ -124,11 +119,11 @@ class PdoArticleRepository implements ArticleRepository
     {
         return new Article
         (
-            (int)$articles['id'],
             (int)$articles['user_id'],
             $articles['title'],
             $articles['content'],
-            $articles['date']
+            $articles['created_at'],
+            (int)$articles['id'],
         );
     }
 }
