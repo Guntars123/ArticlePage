@@ -37,15 +37,12 @@ class JsonPlaceholderCommentRepository implements CommentRepository
         return [];
     }
 
-    private function buildModel(stdClass $comment): Comment
+    private function buildModel(\stdClass $comment): Comment
     {
-        return new Comment
-        (
-            $comment->postId,
-            $comment->id,
-            $comment->name,
-            $comment->email,
+        return new Comment(
+            (int) $comment->article_id,
             $comment->body,
+            (int) $comment->user_id,
         );
     }
 

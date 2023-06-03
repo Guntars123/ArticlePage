@@ -1,0 +1,36 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    {% if session.user is empty %}
+        <h1>You have to sign in to view detailed information about our users!!!</h1>
+    {% else %}
+        <h1>Info about {{ user.username }}:</h1>
+        {% if user is empty %}
+            <h1>Something went wrong. No results found. Please try again!</h1>
+        {% else %}
+            <div class="user">
+                {% if session.user.email == article.author.email %}
+                    <form class="delete-form" method="post" action="/user/delete">
+                        <button type="submit" name="delete"
+                                onClick="confirm('Do you really want to delete this article?')"
+                                value={{ article.id }}>DELETE
+                        </button>
+                    </form>
+                {% endif %}
+                <img class="userPhoto" src="https://placehold.co/300x300" alt="User image">
+                <p><strong>Username: {{ user.username }}</strong></p>
+                <p><strong>Email: </strong>{{ user.email }}</p>
+            </div>
+            <div class="userPosts">
+                <h1>{{ user.username }}s posts:</h1>
+                {% for article in articles %}
+                    <div class="articleuser">
+                        <img src="https://placehold.co/200x200" alt="Article Image">
+                        <a href="/articles/{{ article.id }}"><h2>{{ article.title|capitalize }}</h2></a>
+                        <p>{{ article.content|capitalize }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

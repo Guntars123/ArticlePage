@@ -3,8 +3,11 @@
 namespace App\Repositories\Comment;
 
 
+use App\Models\Comment;
+
 interface CommentRepository
 {
     public function getByArticleId(int $articleId): array;
+
 }
 

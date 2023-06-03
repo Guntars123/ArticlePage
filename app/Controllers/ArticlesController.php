@@ -44,7 +44,7 @@ class ArticlesController
 
         $articles = $this->indexArticleService->execute();
 
-        return new TwigView("articles", ['articles' => $articles]);
+        return new TwigView("articles/index", ['articles' => $articles]);
     }
 
     public function show(array $vars): View
@@ -54,7 +54,7 @@ class ArticlesController
 
             $response = $this->showArticleService->execute(new ShowArticleRequest($articleId));
 
-            return new TwigView("singleArticle", [
+            return new TwigView("articles/show", [
                 'article' => $response->getArticle(),
                 'comments' => $response->getComments()
             ]);
@@ -80,6 +80,7 @@ class ArticlesController
         $article = $createArticleResponse->getArticle();
 
         header('Location: /articles/' . $article->getId());
+        exit();
     }
 
     public function edit(array $vars): View
@@ -94,7 +95,7 @@ class ArticlesController
         }
     }
 
-    public function update(array $vars)
+    public function update(array $vars): void
     {
         $response = $this->updateArticleService->execute(
             new UpdateArticleRequest(
@@ -106,6 +107,7 @@ class ArticlesController
         $article = $response->getArticle();
 
         header('Location: /articles/' . $article->getId());
+        exit();
     }
 
     public function delete(): void
@@ -115,6 +117,7 @@ class ArticlesController
         $this->deleteArticleService->execute($articleId);
 
         header('Location: /articles');
+        exit();
     }
 }
 

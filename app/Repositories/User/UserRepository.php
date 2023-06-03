@@ -8,5 +8,6 @@ interface UserRepository
 {
     public function all(): array;
     public function getById(int $id): ?User;
+    public function save(User $user): void;
 }
 

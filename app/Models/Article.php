@@ -74,8 +74,7 @@ class Article
 
     public function update(array $attributes): void
     {
-        foreach ($attributes as $attribute => $value)
-        {
+        foreach ($attributes as $attribute => $value) {
             $this->{$attribute} = $value;
         }
     }

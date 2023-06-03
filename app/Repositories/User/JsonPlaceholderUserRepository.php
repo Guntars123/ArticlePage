@@ -56,14 +56,10 @@ class JsonPlaceholderUserRepository implements UserRepository
     {
         return new User
         (
-            $user->id,
-            $user->name,
             $user->username,
             $user->email,
-            $user->address,
-            $user->phone,
-            $user->website,
-            $user->company
+            'password',
+            $user->id,
         );
     }
 
@@ -75,5 +71,9 @@ class JsonPlaceholderUserRepository implements UserRepository
         } catch (GuzzleException $e) {
             return "";
         }
+    }
+
+    public function save(User $user): void
+    {
     }
 }

@@ -4,46 +4,33 @@ namespace App\Models;
 
 class User
 {
-    private int $id;
-    private string $name;
     private string $userName;
     private string $email;
-    private \stdClass $address;
-    private string $phone;
-    private string $website;
-    private \stdClass $company;
-
+    private string $password;
+    private ?int $id;
 
     public function __construct
     (
-        int       $id,
-        string    $name,
         string    $userName,
         string    $email,
-        \stdClass $address,
-        string    $phone,
-        string    $website,
-        \stdClass $company
+        string    $password,
+        int       $id = null
     )
     {
-        $this->id = $id;
-        $this->name = $name;
         $this->userName = $userName;
         $this->email = $email;
-        $this->address = $address;
-        $this->phone = $phone;
-        $this->website = $website;
-        $this->company = $company;
+        $this->password = $password;
+        $this->id = $id;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    public function setId(int $id): void
     {
-        return $this->name;
+        $this->id = $id;
     }
 
     public function getUserName(): string
@@ -56,23 +43,16 @@ class User
         return $this->email;
     }
 
-    public function getAddress(): \stdClass
+    public function getPassword(): string
     {
-        return $this->address;
+        return $this->password;
     }
 
-    public function getPhone(): string
+    public function update(array $attributes): void
     {
-        return $this->phone;
-    }
-
-    public function getWebsite(): string
-    {
-        return $this->website;
-    }
-
-    public function getCompany(): \stdClass
-    {
-        return $this->company;
+        foreach ($attributes as $attribute => $value)
+        {
+            $this->{$attribute} = $value;
+        }
     }
 }

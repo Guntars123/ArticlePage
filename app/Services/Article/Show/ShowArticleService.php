@@ -3,6 +3,7 @@
 namespace App\Services\Article\Show;
 
 use App\Exceptions\ResourceNotFoundException;
+use App\Models\Comment;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Comment\CommentRepository;
@@ -42,6 +43,13 @@ class ShowArticleService
         $article->setAuthor($author);
 
         $comments = $this->commentRepository->getByArticleId($article->getId());
+
+        foreach ($comments as $comment) {
+            /** @var Comment $comment */
+            $comment->setUser(
+                $this->userRepository->getById($comment->getUserId())
+            );
+        }
 
         return new ShowArticleResponse($article, $comments);
     }

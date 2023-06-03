@@ -5,8 +5,8 @@ namespace App\Core;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\PdoArticleRepository;
 use App\Repositories\Comment\CommentRepository;
-use App\Repositories\Comment\JsonPlaceholderCommentRepository;
-use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\Comment\PdoCommentRepository;
+use App\Repositories\User\PdoUserRepository;
 use App\Repositories\User\UserRepository;
 use DI\ContainerBuilder;
 use FastRoute\Dispatcher;
@@ -21,8 +21,8 @@ class Router
 
         $builder->addDefinitions([
             ArticleRepository::class => new PdoArticleRepository(),
-            UserRepository::class => new JsonPlaceholderUserRepository(),
-            CommentRepository::class => new JsonPlaceholderCommentRepository()
+            UserRepository::class => new PdoUserRepository(),
+            CommentRepository::class => new PdoCommentRepository()
         ]);
 
         $container = $builder->build();

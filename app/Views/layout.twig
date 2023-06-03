@@ -14,12 +14,25 @@
         <form action="/">
             <button>HOME</button>
         </form>
-        <form action="/users">
-            <button>USERS</button>
-        </form>
-        <form action="/articles/create">
-            <button>ADD ARTICLE</button>
-        </form>
+        {% if session.user is empty %}
+            <form action="/login">
+                <button>Sign In</button>
+            </form>
+        {% endif %}
+        {% if session.user %}
+            <form action="/users">
+                <button>USERS</button>
+            </form>
+            <form action="/articles/create">
+                <button>ADD ARTICLE</button>
+            </form>
+            <form action="/users/{{ session.user.id }}">
+                <button>MY PROFILE</button>
+            </form>
+            <form action="/logout">
+                <button>LOGOUT</button>
+            </form>
+        {% endif %}
     </div>
 </header>
 <body>

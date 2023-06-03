@@ -1,0 +1,53 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <h1>{{ article.title|capitalize }} {% if session.user.email == article.author.email %}<a
+            href="/articles/edit/{{ article.id }}">EDIT</a>{% endif %}</h1>
+    {% if article is empty %}
+        <h1>Something went wrong. No results found. Please try again!</h1>
+    {% else %}
+        <div class="article">
+            {% if session.user.email == article.author.email %}
+                <form class="delete-form" method="post" action="/articles/delete">
+                    <button type="submit" name="delete" onClick="confirm('Do you really want to delete this article?')"
+                            value={{ article.id }}>DELETE
+                    </button>
+                </form>
+            {% endif %}
+            <p>By :
+                <a href="/users/{{ article.author.id }}"> {{ article.author.username }}</a>
+            </p>
+            <img src="https://placehold.co/800x500" alt="Article Image">
+            <p>{{ article.content|capitalize }}</p>
+            <p>
+                Added: {{ article.createdAt }}
+            </p>
+        </div>
+        <div class="comments">
+            <h1>Comments({{ comments|length }}):</h1>
+            <h2>Add comment: </h2>
+            <form class="add-comment" action="/comment/{{ article.id }}" method="POST">
+                <div class="form-group">
+                    <label for="body">Enter the content:</label>
+                    <textarea id="body" name="body" class="content-textarea" required></textarea>
+                </div>
+                {% if session.user is empty %}
+                    <p class="must-log-in">You have to be logged in to write comments. <a href="/login">LOGIN</a></p>
+                {% else %}
+                    <div class="form-group">
+                        <input type="submit" value="Add comment">
+                    </div>
+                {% endif %}
+            </form>
+            {% for comment in comments %}
+                <div class="comment">
+                    <p>
+                        <img class="commentatorPhoto" src="https://placehold.co/30x30" alt="User image">
+                        <strong class="comment-name"><a href="/users/{{ comment.getuser.id }}">{{ comment.getuser.username }}</a></strong>
+                    </p>
+                    <p>{{ comment.body|capitalize }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

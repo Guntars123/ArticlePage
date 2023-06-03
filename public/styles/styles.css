@@ -67,6 +67,7 @@ footer {
     display: flex;
     justify-content: center;
     padding: 20px;
+    margin-top: auto;
 }
 
 .footer h2 {
@@ -237,6 +238,12 @@ footer {
     margin-left: 5px;
 }
 
+.comment-name a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .commentatorPhoto {
     width: 30px;
     height: 30px;
@@ -371,4 +378,58 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #004266;
+}
+
+.register {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.register-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 500px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.link-sign-in {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.must-log-in {
+    color: red;
+    font-weight: bold;
+}
+
+.must-log-in a {
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.must-log-in a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    margin-top: 0;
+    color: red;
+    font-weight: bold;
 }

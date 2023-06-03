@@ -5,11 +5,11 @@
     <form class="add-edit-article" action="/articles" method="POST">
         <div class="form-group">
             <label for="title">Enter the title:</label>
-            <input type="text" id="title" name="title" class="title-input">
+            <input type="text" id="title" name="title" class="title-input" required>
         </div>
         <div class="form-group">
             <label for="content">Enter the content:</label>
-            <textarea id="content" name="content" class="content-textarea"></textarea>
+            <textarea id="content" name="content" class="content-textarea" required></textarea>
         </div>
         <div class="form-group">
             <input type="submit" value="Add article">
