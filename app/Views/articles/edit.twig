@@ -1,7 +1,7 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-    <h1>Edit article {{ article.title }}</h1>
+    <h1>Edit article: "{{ article.title }}"</h1>
     <form class="add-edit-article" action="/articles/{{ article.id }}" method="POST">
         <div class="form-group">
             <label for="title">Enter the title:</label>
